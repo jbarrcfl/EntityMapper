@@ -15,7 +15,7 @@ namespace WebProject
 	{
 
 		static IDbConnection aConn;
-		static string aConnStr = "";
+		static string aConnStr = ""; 
 
 		[WebMethod]
 		public static string GetSourceEntities (int sourceSystem, int entityType)
