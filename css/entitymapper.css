@@ -1,0 +1,65 @@
+/*http://colorschemedesigner.com/#3x21Tw0w0w0w0 
+
+*/
+
+html { 
+	background:#3F92D2;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  padding-top: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  padding-top: 3px;
+  text-align: center;
+}
+h6 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  padding-top: 3px;
+  text-align: center;
+}
+#maincontainer {
+	//background:#66A3D2;
+}
+#source {
+	background:#66A3D2;
+}
+
+#target {
+	background:#66A3D2;
+}
+
+#sourceDetails {
+	background:#66A3D2;
+}
+
+#commandStack {
+	background:#66A3D2;
+}
+
+#entityName {
+word-wrap: break-word;
+}
+
+#sourceSelectedItemDetails {
+word-wrap: break-word;
+}
+
+#sourceentdiv1tbl {
+table-layout: auto; width: 100%;
+}
+
+#destentdiv1tbl {
+table-layout: auto; width: 100%;
+}
+
+#footer {
+	background:#3F92D2;
+}
