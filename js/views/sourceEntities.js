@@ -21,13 +21,7 @@ define([
 				this.model.on('add', this.render, this);
 				this.model.bind('sort',this.render,this);
 				var self = this;
-				$('#sourceSearchField').on('change',function(e){self.filterChanged(e);});
-			},
-			events: {
-				'click .sortButton':'changeSort',
-			},
-			render: function(){
-				$('#sourceSearchField').select2({
+$('#sourceSearchField').select2({
 			    placeholder: "...Search ...Filter",   //Broken in select2 3.3.1 ??Fixed?
 			    allowClear: true,
 			    width: "element",
@@ -100,6 +94,14 @@ define([
 			    }
 			    //data:{results:[]}
 				});	
+				
+				$('#sourceSearchField').on('change',function(e){self.filterChanged(e);});
+			},
+			events: {
+				'click .sortButton':'changeSort',
+			},
+			render: function(){
+				
 
 				jsPlumb.detachEveryConnection();
 				var epToDelete = jsPlumb.selectEndpoints({element:this.$el.find('div')});
