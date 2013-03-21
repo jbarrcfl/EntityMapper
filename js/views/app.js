@@ -18,27 +18,20 @@ define([
       this._sourceView.on('searchEntities',this.sourceEntitySearch,this);
     },
     targetEntitySearch: function(){
-      //console.log('AppView targetEntitySearch');
-      //this._sourceView.createConnections();
-      //this.render();
-      //this._sourceView.render();
     },
     sourceEntitySearch: function(){
-      //this.render();
-      //this._targetView.render();
-      //this._targetView.createConnections();
-      //console.log('AppView sourceEntitySearch');
     },
     render: function () {
 
       this.$el.html('');
       this.$el.append(layoutTemplate);
 
-      //this._sourceView.el = '#source';
-      //this._sourceView.$el = $('#source');
       this.$el.find('#source').html(this._sourceView.render().el);
       this.$el.find('#target').html(this._targetView.render().el);
       
+      //select 2 source dropdown
+      this._sourceView.sourceEntityView.initSelect2();
+      this._targetView.targetEntityView.initSelect2();
       //Backbone.history.start();
 		}
 	});

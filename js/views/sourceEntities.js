@@ -18,21 +18,21 @@ define([
 				this.model = _sourceEntities.filteredEntities(); // Set = collection of filtered // view manage the filtering
 				//this.model.on('add', this.render, this);
 				//this.model.bind('sort',this.render,this);
-				var self = this;
-				this.initSelect2();
-				$('#sourceSearchField').on('change',function(e){self.filterChanged(e);});
+				
 			},
 			events: {
 				'click .sortButton':'changeSort',
 			},
 			render: function(){
 
+				var self = this;
+				//this.initSelect2();
+				
 				// Reset jsPlumb EndPoints when rendering... old dom elements are gone
 				jsPlumb.detachEveryConnection();
 				var epToDelete = jsPlumb.selectEndpoints({element:this.$el.find('div')});
 				epToDelete.delete(); // Had to "delete" the endpoint from the endpointsByElement collection in jsPlumb
 
-				var self = this;
 				self.$el.html(''); // Clear source view 
 				
 				// Add Header Divs
@@ -104,7 +104,8 @@ define([
 			initSelect2: function (){
 
 				var self = this;
-
+				$('#sourceSearchField').on('change',function(e){self.filterChanged(e);});
+				
 				$('#sourceSearchField').select2({
 			    placeholder: "...Search ...Filter",
 			    allowClear: true,

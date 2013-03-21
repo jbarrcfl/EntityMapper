@@ -33,7 +33,7 @@ define([
       		'click .source-search': 'searchEntities'
     	},
     	createConnections:function(){
-    		this.sourceEntityView.createConnections();
+    		// /this.sourceEntityView.createConnections();
     	},
     	searchEntities: function(){
     		console.log("SourceUIView, searchEntities");
