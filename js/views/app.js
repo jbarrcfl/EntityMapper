@@ -18,10 +18,16 @@ define([
       this._sourceView.on('searchEntities',this.sourceEntitySearch,this);
     },
     targetEntitySearch: function(){
-      console.log('AppView targetEntitySearch');
+      //console.log('AppView targetEntitySearch');
+      //this._sourceView.createConnections();
+      //this.render();
+      //this._sourceView.render();
     },
     sourceEntitySearch: function(){
-      console.log('AppView sourceEntitySearch');
+      //this.render();
+      //this._targetView.render();
+      //this._targetView.createConnections();
+      //console.log('AppView sourceEntitySearch');
     },
     render: function () {
 

@@ -16,8 +16,8 @@ define([
 			initialize: function(){
 				
 				this.model = _sourceEntities.filteredEntities(); // Set = collection of filtered // view manage the filtering
-				this.model.on('add', this.render, this);
-				this.model.bind('sort',this.render,this);
+				//this.model.on('add', this.render, this);
+				//this.model.bind('sort',this.render,this);
 				var self = this;
 				this.initSelect2();
 				$('#sourceSearchField').on('change',function(e){self.filterChanged(e);});
@@ -47,19 +47,30 @@ define([
 					self.$el.append(ele);
 					ele.attr('data-jsplumbid',entity.toJSON().id);
 					jsPlumb.addEndpoint(ele, { anchor:"RightMiddle" }, jsPlumb.sourceGreyEndpointOptions);
-					
+				});
+
+				this.createConnections();
+				return self;
+			},
+			createConnections: function(){
+				var self = this;
+				_.each(self.model.toArray(), function(entity,i){
 					_.each(entity.toJSON().connections,function(connection,c){
 						// Connections defined in the database
 						if( $('[data-jsplumbid='+connection+']').length !== 0)
 						{
 							var conn = {};
-							conn.source = jsPlumb.getEndpoints(ele.attr('id'))[0];
-							conn.target = jsPlumb.getEndpoints($('[data-jsplumbid='+connection+']').attr('id'))[0];
-							var aConnection = jsPlumb.connect(conn,jsPlumb.databaseGreyEndpointOptions);
+							conn.source = jsPlumb.getEndpoints($('[data-jsplumbid='+(entity.toJSON().id)+']').attr('id'))[0];
+							conn.target = jsPlumb.getEndpoints($('[data-jsplumbid='+connection+']') .attr('id'))[0];
+							if(!conn.source.isConnectedTo(conn.target))
+							{
+								console.log('target make connection:'+conn);
+								var aConnection = jsPlumb.connect(conn,jsPlumb.databaseGreyEndpointOptions);
+							}
 						}
 					});
 				});
-				return self;
+				return true;
 			},
 			filterChanged:function(e){
 				this.collection.filterText = e.val.toString();
@@ -74,6 +85,7 @@ define([
 				this.render();
 			},
 			searchEntities: function (){
+				var self = this;
 				//Get parameters for search
 				var sourceSystem = $('#sourceSystem option:selected').val();
 				var sourceEntityType = $('#sourceEntityType option:selected').val();
@@ -85,7 +97,7 @@ define([
 				_sourceEntities.query = query;
 				_sourceEntities.fetch({
 					success:function(entities){
-						_sourceEntities.trigger('add');
+						self.render();
 					}
 				});
 			},

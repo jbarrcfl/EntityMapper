@@ -32,10 +32,13 @@ define([
 		events: {
       		'click .source-search': 'searchEntities'
     	},
+    	createConnections:function(){
+    		this.sourceEntityView.createConnections();
+    	},
     	searchEntities: function(){
     		console.log("SourceUIView, searchEntities");
     		this.sourceEntityView.searchEntities();
-    		this.$el.trigger('searchEntities');
+    		this.trigger('searchEntities');
     	}
 
 	});
