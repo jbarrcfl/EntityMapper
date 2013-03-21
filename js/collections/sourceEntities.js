@@ -24,6 +24,7 @@ define([
 			         :          0;
 			},
 			changeSort: function(newField,direction){
+				console.log('SourceEntities chagneSort');
 				this.sort_key       = newField  == this.sort_key? this.sort_key : newField;
 				this.sort_direction = direction == this.sort_direction? this.sort_direction : this.sort_direction*-1;
 				this.sort();
@@ -31,7 +32,13 @@ define([
 			},
 			filteredEntities: function(){
 				var self = this;
-				return _.filter(this.models,function(ent){
+				retVal = new SourceEntities();
+				console.log('filteredEntities');
+				//1. Filtered Entities should be all if no filterText
+				if(this.filterText == ''){console.log('filteredEntities no filter!');return self};
+				
+				console.log('filter found!');
+				retVal.models =  _.filter(this.models,function(ent){
 
 					var x = function(a,b){return (a.toString().toLowerCase().indexOf(b.toString().toLowerCase())!== -1);}
 
@@ -42,7 +49,6 @@ define([
 					//console.log('parameter query:',query.term);
 					if(ent.attributes[parameters[0]])
 					{
-
 						if(parameters[1])
 						{
 						//Compare operator < > = <=
@@ -78,18 +84,9 @@ define([
 
 					return false;
 				});
+
+				return retVal;
 			}
-			/*,
-			SourceEntities: function(){
-				return this.filter(function(ent){
-					return ent.get('isSource') == true;
-				});
-			},
-			TargetEntities: function(){
-				return this.filter(function(ent){
-					return ent.get('isSource') != true;
-				});
-			}*/
 		});
 
 	var _sourceEntities = new SourceEntities();

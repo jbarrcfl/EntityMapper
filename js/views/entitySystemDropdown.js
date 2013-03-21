@@ -7,26 +7,29 @@ define([
 ], function($, _, Backbone, esCollection, dropdownTemplate){
 
 	var EntitySystemDropdown = Backbone.View.extend({
-			collection: esCollection,
-			el: '',
+			
+			tagName: 'select',
+			model: esCollection,
+			template :_.template(dropdownTemplate),
 			initialize: function(){
-				_.templateSettings.variable = "rc";
-				this.template = _.template(dropdownTemplate);
-				this.collection = new esCollection();
-				var self = this;
 
-				this.collection.fetch({
+				this.model = new esCollection();
+				var self = this;
+				
+				this.model.fetch({
 					success: function(){
 						console.log("Success Fetch System");
-						self.collection.add({id:-1,value:'Select One'});
+						self.model.add({id:-1,value:'Select One'});
 						self.render();
 					}
 				});
 			},
 			render: function(){
 				var self = this;
-				_.each(self.collection.models, function(entity, i){
-					self.$el.append(self.template(entity.toJSON()));
+				_.each(self.model.toArray(), function(entity, i){
+					//console.log(entity.toJSON());
+					var aVal = self.template(entity.toJSON());
+					self.$el.append(aVal);
 				});
 
 				return this;

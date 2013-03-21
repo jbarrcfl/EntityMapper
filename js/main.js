@@ -46,7 +46,8 @@ require([
   'views/app',
   'vm'
 ], function(AppView, Vm){
-  var appView = Vm.create({}, 'AppView', AppView);
+  //var appView = Vm.create({}, 'AppView', AppView);
   //Router.initialize({appView: appView});
+  var appView = new AppView();
   appView.render(); // render() calls Backbone.history when its ready to start
 });

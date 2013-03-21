@@ -9,34 +9,33 @@ define([
 ], function($, _, Backbone, TargetEntityView, targetUITemplate,EntityTypeDropdown,EntitySystemDropdown) {
 
 	var TargetUIView = Backbone.View.extend({
-		el: '#target',
+		tagName:'div',
+		template: _.template(targetUITemplate),
 		initialize: function(){
-			_.bindAll(this,'render');
-			this.render();
+			this.targetEntityView = new TargetEntityView();
+			this.sysDD            = new EntitySystemDropdown();
+			this.etDD             = new EntityTypeDropdown();
 		},
-		//sourceView : new SourceEntityView(),
 		render: function(){
+
+			this.$el.html(''); // Clear source view 
+			this.$el.html(this.template());
 			
-			var self = this;
-			self.$el.html(''); // Clear source view 
-			self.$el.append(targetUITemplate);
+			this.$el.append(this.targetEntityView.render().el);
 			
 			// render systemdd
-			this.sysDD = new EntitySystemDropdown({el:'#targetSystem'});
-			//this.sysDD.render();
+			this.$el.find('#targetSystem').append(this.sysDD.render().el);
 			// render EntityType Dropdown
-			this.etDD = new EntityTypeDropdown({el:'#targetEntityType'});
-			//this.etDD.render();
-
-			this.targetView = new TargetEntityView();
-			self.targetView.render();
+			this.$el.find('#targetEntityType').append(this.etDD.render().el);
+			return this;
 		},
 		events: {
-      		'click #retTargetButton': 'searchEntities'
+      		'click .target-search': 'searchEntities'
     	},
     	searchEntities: function(){
     		console.log("TargetUIView, searchEntities");
-    		this.targetView.searchEntities();
+    		this.targetEntityView.searchEntities();
+    		//$(this.el).trigger('searchEntities');
     	}
 
 	});
